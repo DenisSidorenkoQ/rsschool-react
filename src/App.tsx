@@ -5,7 +5,7 @@ import { AboutUs } from './pages/AboutUs';
 import { Error } from './pages/Error';
 import { Main } from './pages/Main';
 
-function App() {
+const App = () => {
   return (
     <div className="App">
       <Routes>
@@ -16,6 +16,6 @@ function App() {
       </Routes>
     </div>
   );
-}
+};
 
 export default App;
