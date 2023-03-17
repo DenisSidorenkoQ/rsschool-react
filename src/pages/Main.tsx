@@ -11,7 +11,6 @@ class SearchBar extends React.Component {
 
   componentWillUnmount() {
     localStorage.setItem(LOCAL_STORAGE_VALUE_NAME, this.state.inputText);
-    console.log(this.state.inputText);
   }
 
   handleChangeText = (event: { target: { value: string } }) => {
@@ -31,6 +30,107 @@ class SearchBar extends React.Component {
   }
 }
 
+class Cards extends React.Component {
+  render() {
+    return (
+      <div className="box">
+        <div className="gridContainer">
+          <div className="gridElement">
+            <div className="card">
+              <img
+                src="https://st4.depositphotos.com/9998432/22597/v/450/depositphotos_225976914-stock-illustration-person-gray-photo-placeholder-man.jpg"
+                alt="Avatar"
+                style={{ width: '100%' }}
+              />
+              <div className="container">
+                <h4>
+                  <b>Denis</b>
+                </h4>
+                <p>Software Engineer</p>
+              </div>
+            </div>
+          </div>
+          <div className="gridElement">
+            <div className="card">
+              <img
+                src="https://st4.depositphotos.com/9998432/22670/v/450/depositphotos_226700578-stock-illustration-person-gray-photo-placeholder-man.jpg"
+                alt="Avatar"
+                style={{ width: '100%' }}
+              />
+              <div className="container">
+                <h4>
+                  <b>German</b>
+                </h4>
+                <p>UI/UX Designer</p>
+              </div>
+            </div>
+          </div>
+          <div className="gridElement">
+            <div className="card">
+              <img
+                src="https://st4.depositphotos.com/9998432/26776/v/450/depositphotos_267763348-stock-illustration-person-gray-photo-placeholder-woman.jpg"
+                alt="Avatar"
+                style={{ width: '100%' }}
+              />
+              <div className="container">
+                <h4>
+                  <b>Olivia</b>
+                </h4>
+                <p>Engineer</p>
+              </div>
+            </div>
+          </div>
+          <div className="gridElement">
+            <div className="card">
+              <img
+                src="https://st4.depositphotos.com/9998432/28036/v/450/depositphotos_280360720-stock-illustration-person-gray-photo-placeholder-woman.jpg"
+                alt="Avatar"
+                style={{ width: '100%' }}
+              />
+              <div className="container">
+                <h4>
+                  <b>Mia</b>
+                </h4>
+                <p>Engineer</p>
+              </div>
+            </div>
+          </div>
+          <div className="gridElement">
+            <div className="card">
+              <img
+                src="https://st4.depositphotos.com/9998432/22597/v/450/depositphotos_225976914-stock-illustration-person-gray-photo-placeholder-man.jpg"
+                alt="Avatar"
+                style={{ width: '100%' }}
+              />
+              <div className="container">
+                <h4>
+                  <b>John</b>
+                </h4>
+                <p>UI/UX Designer</p>
+              </div>
+            </div>
+          </div>
+          <div className="gridElement">
+            <div className="card">
+              <img
+                src="https://st4.depositphotos.com/9998432/22597/v/450/depositphotos_225976914-stock-illustration-person-gray-photo-placeholder-man.jpg"
+                alt="Avatar"
+                style={{ width: '100%' }}
+              />
+              <div className="container">
+                <h4>
+                  <b>Maxim</b>
+                </h4>
+                <p>Software Engineer</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    );
+  }
+}
+
 export const Main = () => {
   return (
     <>
@@ -38,23 +138,7 @@ export const Main = () => {
       <h1>Main</h1>
       <div>
         <SearchBar />
-      </div>
-      <div className="gridContainer">
-        <div className="gridElement">
-          <div className="card">
-            <img
-              src="https://www.google.com/url?sa=i&url=https%3A%2F%2Fstock.adobe.com%2Fsearch%3Fk%3Dplaceholder&psig=AOvVaw0hid6j9XgLHb3fLUCJ9b1S&ust=1679122008393000&source=images&cd=vfe&ved=0CA8QjRxqFwoTCOj04Iev4v0CFQAAAAAdAAAAABAE"
-              alt="Avatar"
-              style={{ width: '100%' }}
-            />
-            <div className="container">
-              <h4>
-                <b>John Doe</b>
-              </h4>
-              <p>Architect & Engineer</p>
-            </div>
-          </div>
-        </div>
+        <Cards />
       </div>
     </>
   );

@@ -4,15 +4,13 @@ import './Header.css';
 
 export const Header = () => {
   return (
-    <nav>
-      <ul>
-        <li>
-          <a href="/main">Main</a>
-        </li>
-        <li>
-          <a href="/about-us">AboutUs</a>
-        </li>
-      </ul>
-    </nav>
+    <ul>
+      <li>
+        <Link to="/main">Main</Link>
+      </li>
+      <li>
+        <Link to="/about-us">About Us</Link>
+      </li>
+    </ul>
   );
 };
