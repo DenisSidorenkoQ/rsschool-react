@@ -40,7 +40,6 @@ class Cards extends React.Component {
               <img
                 src="https://st4.depositphotos.com/9998432/22597/v/450/depositphotos_225976914-stock-illustration-person-gray-photo-placeholder-man.jpg"
                 alt="Avatar"
-                style={{ width: '100%' }}
               />
               <div className="container">
                 <h4>
@@ -55,7 +54,6 @@ class Cards extends React.Component {
               <img
                 src="https://st4.depositphotos.com/9998432/22670/v/450/depositphotos_226700578-stock-illustration-person-gray-photo-placeholder-man.jpg"
                 alt="Avatar"
-                style={{ width: '100%' }}
               />
               <div className="container">
                 <h4>
@@ -70,7 +68,6 @@ class Cards extends React.Component {
               <img
                 src="https://st4.depositphotos.com/9998432/26776/v/450/depositphotos_267763348-stock-illustration-person-gray-photo-placeholder-woman.jpg"
                 alt="Avatar"
-                style={{ width: '100%' }}
               />
               <div className="container">
                 <h4>
@@ -85,7 +82,6 @@ class Cards extends React.Component {
               <img
                 src="https://st4.depositphotos.com/9998432/28036/v/450/depositphotos_280360720-stock-illustration-person-gray-photo-placeholder-woman.jpg"
                 alt="Avatar"
-                style={{ width: '100%' }}
               />
               <div className="container">
                 <h4>
@@ -100,7 +96,6 @@ class Cards extends React.Component {
               <img
                 src="https://st4.depositphotos.com/9998432/22597/v/450/depositphotos_225976914-stock-illustration-person-gray-photo-placeholder-man.jpg"
                 alt="Avatar"
-                style={{ width: '100%' }}
               />
               <div className="container">
                 <h4>
@@ -115,7 +110,6 @@ class Cards extends React.Component {
               <img
                 src="https://st4.depositphotos.com/9998432/22597/v/450/depositphotos_225976914-stock-illustration-person-gray-photo-placeholder-man.jpg"
                 alt="Avatar"
-                style={{ width: '100%' }}
               />
               <div className="container">
                 <h4>
