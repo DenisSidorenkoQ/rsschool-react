@@ -1,6 +1,12 @@
 import React from 'react';
 
-export class Card extends React.Component {
+type Props = {
+  img: string;
+  name: string;
+  job: string;
+};
+
+export class Card extends React.Component<Props> {
   render() {
     const { img, name, job } = this.props;
     return (

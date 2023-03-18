@@ -1,0 +1,38 @@
+[
+  {
+    "id": 1,
+    "name": "Denis",
+    "job": "Software Engineer",
+    "imgUrl": "https://st4.depositphotos.com/9998432/22597/v/450/depositphotos_225976914-stock-illustration-person-gray-photo-placeholder-man.jpg"
+  },
+  {
+    "id": 2,
+    "name": "German",
+    "job": "UI/UX Designer",
+    "imgUrl": "https://st4.depositphotos.com/9998432/22670/v/450/depositphotos_226700578-stock-illustration-person-gray-photo-placeholder-man.jpg"
+  },
+  {
+    "id": 3,
+    "name": "Olivia",
+    "job": "Engineer",
+    "imgUrl": "https://st4.depositphotos.com/9998432/26776/v/450/depositphotos_267763348-stock-illustration-person-gray-photo-placeholder-woman.jpg"
+  },
+  {
+    "id": 4,
+    "name": "Mia",
+    "job": "Engineer",
+    "imgUrl": "https://st4.depositphotos.com/9998432/28036/v/450/depositphotos_280360720-stock-illustration-person-gray-photo-placeholder-woman.jpg"
+  },
+  {
+    "id": 5,
+    "name": "John",
+    "job": "UI/UX Designer",
+    "imgUrl": "https://st4.depositphotos.com/9998432/22597/v/450/depositphotos_225976914-stock-illustration-person-gray-photo-placeholder-man.jpg"
+  },
+  {
+    "id": 6,
+    "name": "Maxim",
+    "job": "Software Engineer",
+    "imgUrl": "https://st4.depositphotos.com/9998432/22597/v/450/depositphotos_225976914-stock-illustration-person-gray-photo-placeholder-man.jpg"
+  }
+]
