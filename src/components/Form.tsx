@@ -1,58 +1,38 @@
 import React from 'react';
 import './Form.css';
 
-export class Form extends React.Component {
-  state = {
-    name: '',
-    date: '',
-    country: 'Belarus',
-    dataConfirmation: false,
-  };
+export class Form extends React.Component<never> {
+  nameInput = React.createRef<HTMLInputElement>();
+  dateInput = React.createRef<HTMLInputElement>();
+  countrySelect = React.createRef<HTMLSelectElement>();
+  imgInput = React.createRef<HTMLInputElement>();
+  sexInput = React.createRef<HTMLInputElement>();
+  dataConfirmationInput = React.createRef<HTMLInputElement>();
 
-  handleChangeName = (event: { target: { value: string } }) => {
-    this.setState({ name: event.target.value });
-  };
-
-  handleChangeDate = (event: { target: { value: string } }) => {
-    this.setState({ date: event.target.value });
-  };
-
-  handleChangeCountry = (event: { target: { value: string } }) => {
-    this.setState({ country: event.target.value });
-  };
-
-  handleChangeDataConfirmation = () => {
-    if (this.state.dataConfirmation) {
-      this.setState({ dataConfirmation: false });
-    } else {
-      this.setState({ dataConfirmation: true });
-    }
+  handleSubmit = (event: { preventDefault: () => void }) => {
+    event.preventDefault();
+    console.log(this.imgInput.current?.files);
   };
 
   render() {
     return (
-      <form id="form">
+      <form id="form" onSubmit={this.handleSubmit}>
         <div>
           <label>
             Name:
-            <input type="text" value={this.state.name} onChange={this.handleChangeName} />
+            <input type="text" ref={this.nameInput} />
           </label>
         </div>
         <div style={{ paddingTop: '1em' }}>
           <label>
             Birthday:
-            <input type="date" value={this.state.date} onChange={this.handleChangeDate} />
+            <input type="date" ref={this.dateInput} />
           </label>
         </div>
         <div style={{ paddingTop: '1em' }}>
           <label>
             Country:
-            <select
-              name="country"
-              id="country"
-              value={this.state.country}
-              onChange={this.handleChangeCountry}
-            >
+            <select name="country" id="country" ref={this.countrySelect} defaultValue="Belarus">
               <option value="Belarus">Belarus</option>
               <option value="Ukraine">Ukraine</option>
               <option value="Poland">Poland</option>
@@ -62,7 +42,13 @@ export class Form extends React.Component {
         <div>
           <label>
             Profile image:
-            <input type="file" id="avatar" name="avatar" accept="image/png, image/jpeg" />
+            <input
+              type="file"
+              id="avatar"
+              name="avatar"
+              ref={this.imgInput}
+              accept="image/png, image/jpeg"
+            />
           </label>
         </div>
         <div style={{ paddingTop: '1em' }}>
@@ -70,17 +56,16 @@ export class Form extends React.Component {
             <label>Male/Female</label>
           </div>
           <label className="switch">
-            <input type="checkbox" />
+            <input type="checkbox" ref={this.sexInput} />
             <span className="slider"></span>
           </label>
         </div>
         <div style={{ paddingTop: '1em' }}>
           <label>
-            <input type="checkbox" onClick={this.handleChangeDataConfirmation} />I consent to my
-            personal data
+            <input type="checkbox" ref={this.dataConfirmationInput} />I consent to my personal data
           </label>
         </div>
-        <button type="submit" form="form" value="Submit">
+        <button type="submit" value="Submit">
           Submit
         </button>
       </form>

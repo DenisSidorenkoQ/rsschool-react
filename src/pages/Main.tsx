@@ -3,7 +3,7 @@ import './Main.css';
 import { Header } from './Header';
 import { SearchBar } from '../components/SearchBar';
 import { CardInfo } from '../model/CardState';
-import cards from '../data/cards.json';
+import cards from '../data/main/cards.json';
 import { Card } from '../components/Card';
 
 export const Main = () => {

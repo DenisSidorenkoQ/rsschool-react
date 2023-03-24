@@ -1,5 +1,6 @@
 import React from 'react';
 import { Form } from '../components/Form';
+import { FormCard } from '../components/FormCard';
 
 export const FormPage = () => {
   return (
