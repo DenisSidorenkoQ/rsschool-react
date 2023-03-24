@@ -16,6 +16,11 @@ export const Header = () => {
             About Us
           </Link>
         </div>
+        <div>
+          <Link className="header-link" to="/form">
+            Form
+          </Link>
+        </div>
       </ul>
     </div>
   );
