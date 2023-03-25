@@ -5,7 +5,8 @@ import { FormCard } from './FormCard';
 
 const ERROR_FIELD_IS_EMPTY = 'Field is empty';
 const ERROR_FIELD_CONSIST_FROM_TWO_WORDS = 'Field consist from two words';
-const ERROR_DATA_NOT_CONFIRMED = 'Field consist from two words';
+const ERROR_DATA_NOT_CONFIRMED = 'Data not confirmed';
+const ERROR_WRONG_DATE = 'Wrong date';
 
 export class Form extends React.Component {
   nameInput = React.createRef<HTMLInputElement>();
@@ -24,17 +25,22 @@ export class Form extends React.Component {
     name: '',
     date: '',
     country: '',
-    sex: '',
+    sex: 'M',
     img: '',
   };
 
-  handleSubmit = (event: { preventDefault: () => void }) => {
+  handleSubmit = async (event: { preventDefault: () => void }) => {
     event.preventDefault();
     this.validate = true;
-    this.setState({ name: this.nameInput.current?.value });
-    this.setState({ date: this.dateInput.current?.value });
-    this.setState({ country: this.countrySelect.current?.value });
-    this.setState({ img: URL.createObjectURL(this.imgInput.current.files[0]) });
+    await this.setState({ name: this.nameInput.current?.value });
+    await this.setState({ date: this.dateInput.current?.value });
+    await this.setState({ country: this.countrySelect.current?.value });
+
+    if (this.imgInput.current?.files?.length ?? 0 > 0) {
+      await this.setState({
+        img: URL.createObjectURL(this.imgInput.current?.files[0]),
+      });
+    }
 
     if (this.sexInput.current?.checked) {
       this.setState({ sex: 'W' });
@@ -52,9 +58,13 @@ export class Form extends React.Component {
       this.nameErrorText = '';
     }
 
+    const timestampDate = new Date(this.state.date).getTime();
+
     if (this.state.date.length < 1) {
       this.dateErrorText = ERROR_FIELD_IS_EMPTY;
       this.validate = false;
+    } else if (timestampDate >= Date.now()) {
+      this.dateErrorText = ERROR_WRONG_DATE;
     } else {
       this.dateErrorText = '';
     }
@@ -140,7 +150,7 @@ export class Form extends React.Component {
         <div className="gridContainer">
           {this.cardList.map((card) => {
             return (
-              <div className="gridElement">
+              <div key={card.name} className="gridElement">
                 <FormCard
                   name={card.name}
                   date={card.date}

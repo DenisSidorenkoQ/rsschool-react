@@ -18,11 +18,11 @@ export class FormCard extends React.Component<Props> {
           <img src={img} alt="Avatar" />
           <div className="container">
             <h4>
-              <b>{name}</b>
+              <b>Name: {name}</b>
             </h4>
-            <p>{sex}</p>
-            <p>{date}</p>
-            <p>{country}</p>
+            <p>Sex: {sex}</p>
+            <p>Birthday: {date}</p>
+            <p>Country: {country}</p>
           </div>
         </div>
       </>
