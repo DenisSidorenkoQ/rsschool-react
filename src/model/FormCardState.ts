@@ -1,6 +1,7 @@
-export interface FormCardState {
+export interface FormCardInfo {
   name: string;
-  country: string;
   date: string;
+  country: string;
   img: string;
+  sex: string;
 }
