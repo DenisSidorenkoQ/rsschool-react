@@ -37,9 +37,12 @@ export class Form extends React.Component {
     await this.setState({ country: this.countrySelect.current?.value });
 
     if (this.imgInput.current?.files?.length ?? 0 > 0) {
-      await this.setState({
-        img: URL.createObjectURL(this.imgInput.current?.files[0]),
-      });
+      const files = this.imgInput.current?.files;
+      if (files) {
+        await this.setState({
+          img: URL.createObjectURL(files[0]),
+        });
+      }
     }
 
     if (this.sexInput.current?.checked) {
