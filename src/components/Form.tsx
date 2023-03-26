@@ -68,6 +68,7 @@ export class Form extends React.Component {
       this.validate = false;
     } else if (timestampDate >= Date.now()) {
       this.dateErrorText = ERROR_WRONG_DATE;
+      this.validate = false;
     } else {
       this.dateErrorText = '';
     }
@@ -87,6 +88,19 @@ export class Form extends React.Component {
         name: this.state.name,
         sex: this.state.sex,
       });
+      if (
+        this.nameInput.current &&
+        this.imgInput.current &&
+        this.sexInput.current &&
+        this.dateInput.current &&
+        this.dataConfirmationInput.current
+      ) {
+        this.nameInput.current.value = '';
+        this.imgInput.current.value = '';
+        this.sexInput.current.value = '';
+        this.dateInput.current.value = '';
+        this.dataConfirmationInput.current.checked = false;
+      }
     }
   };
 
@@ -141,8 +155,7 @@ export class Form extends React.Component {
           </div>
           <div style={{ paddingTop: '1em' }}>
             <label>
-              <input type="checkbox" ref={this.dataConfirmationInput} />I consent to my personal
-              data
+              <input type="radio" ref={this.dataConfirmationInput} />I consent to my personal data
               <span style={{ color: 'red' }}>{this.dataConfirmationErrorText}</span>
             </label>
           </div>
