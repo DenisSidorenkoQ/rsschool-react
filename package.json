@@ -18,7 +18,8 @@
     "test": "vitest",
     "coverage": "vitest run --coverage",
     "deploy": "gh-pages -d build",
-    "predeploy": "npm run build"
+    "predeploy": "npm run build",
+    "lint": "eslint ."
   },
   "dependencies": {
     "gh-pages": "^5.0.0",
