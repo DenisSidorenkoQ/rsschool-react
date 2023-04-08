@@ -1,6 +1,5 @@
 export interface CardInfo {
   id: number;
-  name: string;
-  job: string;
+  login: string;
   imgUrl: string;
 }
