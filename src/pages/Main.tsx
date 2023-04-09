@@ -18,15 +18,15 @@ export const Main = () => {
   const [selectedUserId, setSelectedUserId] = React.useState(-1);
   const [selectedUser, setSelectedUser] = React.useState<UserInfo>();
   const [isComplete, setIsComplete] = React.useState(false);
+  const [isCreate, setIsCreate] = React.useState(false);
 
   useEffect(() => {
-    setIsComplete(false);
-    userService.findUsers(inputLogin).then((response) => setUserList(response));
-    setIsComplete(true);
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
-
-  useEffect(() => {
+    if (!isCreate) {
+      setIsComplete(false);
+      userService.findUsers(inputLogin).then((response) => setUserList(response));
+      setIsComplete(true);
+      setIsCreate(true)
+    }
     return function () {
       localStorage.setItem(LOCAL_STORAGE_VALUE_NAME, inputLogin);
     };
