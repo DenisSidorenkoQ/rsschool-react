@@ -23,6 +23,7 @@ export const Main = () => {
     setIsComplete(false);
     userService.findUsers(inputLogin).then((response) => setUserList(response));
     setIsComplete(true);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   useEffect(() => {
