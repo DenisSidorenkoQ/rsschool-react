@@ -14,10 +14,10 @@ export function Card(props: Props) {
         <img src={img} alt="Avatar" />
         <div className="container">
           <h4>
-            <b>{id}</b>
+            <b>Id: {id}</b>
           </h4>
           <h5>
-            <b>{name}</b>
+            <b>Login: {name}</b>
           </h5>
         </div>
       </div>

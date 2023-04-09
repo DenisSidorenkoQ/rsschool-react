@@ -4,6 +4,7 @@ import { Header } from './Header';
 import { Card } from '../components/Card';
 import userService from '../service/GithubUserService';
 import { ResponseSearchUsers } from '../model/UserState';
+import { Modal } from '../components/Modal';
 
 const LOCAL_STORAGE_VALUE_NAME = 'SAVED_VALUE';
 
@@ -12,6 +13,7 @@ export const Main = () => {
   const [inputLogin, setInputLogin] = React.useState(
     localStorage.getItem(LOCAL_STORAGE_VALUE_NAME) || 'Denis'
   );
+  const [modalIsOpen, setModalIsOpen] = React.useState(false);
 
   useEffect(() => {
     userService.findUsers(inputLogin).then((response) => setUserList(response));
@@ -33,8 +35,13 @@ export const Main = () => {
     }
   };
 
+  const handleOnClick = async () => {
+    setModalIsOpen(true);
+  };
+
   return (
     <>
+      {modalIsOpen && <Modal modalIsOpen={setModalIsOpen} />}
       <Header />
       <h1>Main</h1>
       <div className="box">
@@ -52,7 +59,7 @@ export const Main = () => {
           <div className="gridContainer">
             {userList?.items.map((user) => {
               return (
-                <div key={user.id} className="gridElement">
+                <div key={user.id} className="gridElement" onClick={handleOnClick}>
                   <Card key={user.id} id={user.id} name={user.login} img={user.avatar_url} />
                 </div>
               );
