@@ -3,7 +3,7 @@ import './Main.css';
 import { Header } from './Header';
 import { Card } from '../components/Card';
 import userService from '../service/GithubUserService';
-import { ResponseSearchUsers } from '../model/UserState';
+import { ResponseSearchUsers, UserInfo } from '../model/UserState';
 import { Modal } from '../components/Modal';
 
 const LOCAL_STORAGE_VALUE_NAME = 'SAVED_VALUE';
@@ -14,16 +14,24 @@ export const Main = () => {
     localStorage.getItem(LOCAL_STORAGE_VALUE_NAME) || 'Denis'
   );
   const [modalIsOpen, setModalIsOpen] = React.useState(false);
+  const [selectedUserId, setSelectedUserId] = React.useState(-1);
+  const [selectedUser, setSelectedUser] = React.useState<UserInfo>();
 
   useEffect(() => {
     userService.findUsers(inputLogin).then((response) => setUserList(response));
-  }, []);
+  }, [inputLogin]);
 
   useEffect(() => {
     return function () {
       localStorage.setItem(LOCAL_STORAGE_VALUE_NAME, inputLogin);
     };
   }, [inputLogin]);
+
+  useEffect(() => {
+    userList?.items.forEach((element) => {
+      if (element.id === selectedUserId) setSelectedUser(element);
+    });
+  }, [selectedUserId, userList?.items]);
 
   const handleChangeText = (event: { target: { value: string } }) => {
     setInputLogin(event.target.value);
@@ -35,13 +43,14 @@ export const Main = () => {
     }
   };
 
-  const handleOnClick = async () => {
+  const handleOnClick = async (e: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
+    setSelectedUserId(Number(e.currentTarget.id));
     setModalIsOpen(true);
   };
 
   return (
     <>
-      {modalIsOpen && <Modal modalIsOpen={setModalIsOpen} />}
+      {selectedUser && modalIsOpen && <Modal user={selectedUser} modalIsOpen={setModalIsOpen} />}
       <Header />
       <h1>Main</h1>
       <div className="box">
@@ -59,7 +68,12 @@ export const Main = () => {
           <div className="gridContainer">
             {userList?.items.map((user) => {
               return (
-                <div key={user.id} className="gridElement" onClick={handleOnClick}>
+                <div
+                  key={user.id}
+                  id={user.id.toString()}
+                  className="gridElement"
+                  onClick={handleOnClick}
+                >
                   <Card key={user.id} id={user.id} name={user.login} img={user.avatar_url} />
                 </div>
               );
