@@ -10,7 +10,7 @@ interface Props {
 export const Modal = (props: Props) => {
   const { user } = props;
   return (
-    <div className="overlay" onClick={(e) => props.modalIsOpen(false)}>
+    <div className="overlay" onClick={() => props.modalIsOpen(false)}>
       <div className="modalBackground">
         <div className="modalContainer" onClick={(e) => e.stopPropagation()}>
           <div className="titleCloseBtn">

@@ -1,5 +1,5 @@
 import React from 'react';
-import './FormCatd.css';
+import './FormCard.css';
 
 type Props = {
   name: string;

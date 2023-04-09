@@ -5,6 +5,7 @@ import { Card } from '../components/Card';
 import userService from '../service/GithubUserService';
 import { ResponseSearchUsers, UserInfo } from '../model/UserState';
 import { Modal } from '../components/Modal';
+import { ProgressBar } from '../components/ProgressBar';
 
 const LOCAL_STORAGE_VALUE_NAME = 'SAVED_VALUE';
 
@@ -16,10 +17,13 @@ export const Main = () => {
   const [modalIsOpen, setModalIsOpen] = React.useState(false);
   const [selectedUserId, setSelectedUserId] = React.useState(-1);
   const [selectedUser, setSelectedUser] = React.useState<UserInfo>();
+  const [isComplete, setIsComplete] = React.useState(false);
 
   useEffect(() => {
+    setIsComplete(false);
     userService.findUsers(inputLogin).then((response) => setUserList(response));
-  }, [inputLogin]);
+    setIsComplete(true);
+  }, []);
 
   useEffect(() => {
     return function () {
@@ -39,7 +43,9 @@ export const Main = () => {
 
   const handleKeyDown = async (event: { key: string }) => {
     if (event.key === 'Enter') {
+      await setIsComplete(false);
       await userService.findUsers(inputLogin).then((response) => setUserList(response));
+      await setIsComplete(true);
     }
   };
 
@@ -63,6 +69,7 @@ export const Main = () => {
           onChange={handleChangeText}
         />
       </div>
+      <ProgressBar isComplete={isComplete} />
       <div>
         <div className="box">
           <div className="gridContainer">
