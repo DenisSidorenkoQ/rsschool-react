@@ -25,12 +25,12 @@ export const Main = () => {
       setIsComplete(false);
       userService.findUsers(inputLogin).then((response) => setUserList(response));
       setIsComplete(true);
-      setIsCreate(true)
+      setIsCreate(true);
     }
     return function () {
       localStorage.setItem(LOCAL_STORAGE_VALUE_NAME, inputLogin);
     };
-  }, [inputLogin]);
+  }, [isCreate, inputLogin]);
 
   useEffect(() => {
     userList?.items.forEach((element) => {
