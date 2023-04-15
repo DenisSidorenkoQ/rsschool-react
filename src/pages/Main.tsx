@@ -1,4 +1,5 @@
 import React, { useEffect } from 'react';
+import { useSelector, useDispatch } from 'react-redux'
 import './Main.css';
 import { Header } from './Header';
 import { Card } from '../components/Card';
@@ -6,13 +7,19 @@ import userService from '../service/GithubUserService';
 import { ResponseSearchUsers, UserInfo } from '../model/UserState';
 import { Modal } from '../components/Modal';
 import { ProgressBar } from '../components/ProgressBar';
+import store from "../store";
+import {changeSearchText} from "../store/searchBarSlice";
+import {changeCardList} from "../store/CardListSlice";
 
-const LOCAL_STORAGE_VALUE_NAME = 'SAVED_VALUE';
+const DEFAULT_LOGIN = 'Denis';
 
 export const Main = () => {
+  type RootState = ReturnType<typeof store.getState>
+  const dispatch = useDispatch();
+
   const [userList, setUserList] = React.useState<ResponseSearchUsers>();
   const [inputLogin, setInputLogin] = React.useState(
-    localStorage.getItem(LOCAL_STORAGE_VALUE_NAME) || 'Denis'
+      useSelector((state: RootState) => state.searchBar.searchText ) || DEFAULT_LOGIN
   );
   const [modalIsOpen, setModalIsOpen] = React.useState(false);
   const [selectedUserId, setSelectedUserId] = React.useState(-1);
@@ -23,12 +30,16 @@ export const Main = () => {
   useEffect(() => {
     if (!isCreate) {
       setIsComplete(false);
-      userService.findUsers(inputLogin).then((response) => setUserList(response));
+      if (inputLogin === DEFAULT_LOGIN) {
+        userService.findUsers(inputLogin).then((response) => setUserList(response));
+      } else {
+        // useSelector((state: RootState) => state.cardList.cards);
+      }
       setIsComplete(true);
       setIsCreate(true);
     }
     return function () {
-      localStorage.setItem(LOCAL_STORAGE_VALUE_NAME, inputLogin);
+      dispatch(changeSearchText(inputLogin));
     };
   }, [isCreate, inputLogin]);
 
@@ -38,14 +49,15 @@ export const Main = () => {
     });
   }, [selectedUserId, userList?.items]);
 
-  const handleChangeText = (event: { target: { value: string } }) => {
-    setInputLogin(event.target.value);
+  const handleChangeText = async (event: { target: { value: string } }) => {
+    await setInputLogin(event.target.value);
   };
 
   const handleKeyDown = async (event: { key: string }) => {
     if (event.key === 'Enter') {
       await setIsComplete(false);
       await userService.findUsers(inputLogin).then((response) => setUserList(response));
+      await dispatch(changeCardList(userList));
       await setIsComplete(true);
     }
   };
