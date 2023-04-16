@@ -1,7 +1,9 @@
-import React, { useState } from 'react';
+import React, {useEffect, useState} from 'react';
 import './Form.css';
 import { FormCardInfo } from '../model/FormCardState';
 import { FormCard } from './FormCard';
+import {RootState, store} from "../store";
+import {useDispatch, useSelector} from "react-redux";
 
 const ERROR_FIELD_IS_EMPTY = 'Field is empty';
 const ERROR_FIELD_CONSIST_FROM_TWO_WORDS = 'Field consist from two words';
@@ -9,6 +11,8 @@ const ERROR_DATA_NOT_CONFIRMED = 'Data not confirmed';
 const ERROR_WRONG_DATE = 'Wrong date';
 
 export function Form() {
+  const dispatch = useDispatch();
+
   const nameInput = React.createRef<HTMLInputElement>();
   const dateInput = React.createRef<HTMLInputElement>();
   const countrySelect = React.createRef<HTMLSelectElement>();
@@ -20,7 +24,7 @@ export function Form() {
   const [dateErrorText, setDateErrorText] = useState('');
   const [dataConfirmationErrorText, setDataConfirmationErrorText] = useState('');
   const [dataConfirmation, setDataConfirmation] = useState(false);
-  const [cardList] = useState<FormCardInfo[]>([]);
+  const [cardList, setCardList] = useState<FormCardInfo[]>([]);
 
   const [name, setName] = useState('');
   const [date, setDate] = useState('');
@@ -28,8 +32,14 @@ export function Form() {
   const [sex, setSex] = useState('M');
   const [img, setImg] = useState('');
 
+  useEffect(() => {
+    console.log("start");
+    // setCardList(useSelector((state: RootState) => state.formCardList.formCards));
+  }, []);
+
   const nameChange = (e: React.FormEvent<HTMLInputElement>) => {
     setName(e.currentTarget.value);
+    console.log(cardList);
   };
 
   const dateChange = (e: React.FormEvent<HTMLInputElement>) => {
@@ -94,8 +104,6 @@ export function Form() {
       setDataConfirmationErrorText('');
     }
 
-    console.log(validate);
-
     if (validate) {
       cardList.push({
         country: country,
@@ -104,6 +112,8 @@ export function Form() {
         name: name,
         sex: sex,
       });
+      //
+      // dispatch(setCards(cardList));
 
       if (
         nameInput.current &&
@@ -124,6 +134,7 @@ export function Form() {
       setDate('');
       setCountry('Belarus');
       setDataConfirmation(false);
+      console.log(cardList);
     }
   };
 

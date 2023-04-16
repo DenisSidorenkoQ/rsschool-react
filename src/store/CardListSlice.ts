@@ -1,18 +1,21 @@
-import {createSlice} from "@reduxjs/toolkit";
+import {createSlice, PayloadAction} from "@reduxjs/toolkit";
+import {ResponseSearchUsers} from "../model/UserState";
 
-const cardListSlice = createSlice({
+const CardListSlice = createSlice({
     name: 'cardList',
     initialState: {
-        cards: {},
+        cardList: {} as ResponseSearchUsers,
     },
     reducers: {
-        changeCardList(state, action) {
-            state.cards = action.payload;
-            console.log(state.cards);
+        changeCardList(state, action: PayloadAction<ResponseSearchUsers>) {
+            return {
+                ...state.cardList,
+                cardList: action.payload,
+            }
         },
     },
 })
 
-export const { changeCardList } = cardListSlice.actions;
+export const { changeCardList } = CardListSlice.actions;
 
-export default cardListSlice.reducer;
+export default CardListSlice.reducer;

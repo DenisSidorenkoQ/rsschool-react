@@ -1,10 +1,15 @@
 import { configureStore } from '@reduxjs/toolkit';
-import searchBarReducer from './searchBarSlice';
-import cardListReducer from './CardListSlice';
+import SearchBarReducer from './SearchBarSlice';
+import CardListReducer from './CardListSlice';
+import FormCardListReducer from './FormCardListSlice';
 
-export default configureStore({
+export const store = configureStore({
     reducer: {
-        searchBar: searchBarReducer,
-        cardList: cardListReducer,
+        searchBar: SearchBarReducer,
+        cardList: CardListReducer,
+        formCardList: FormCardListReducer,
     }
 });
+
+export type RootState = ReturnType<typeof store.getState>
+export type AppDispatch = typeof store.dispatch

@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import { useSelector, useDispatch } from 'react-redux'
+import {useDispatch, useSelector} from 'react-redux'
 import './Main.css';
 import { Header } from './Header';
 import { Card } from '../components/Card';
@@ -7,19 +7,21 @@ import userService from '../service/GithubUserService';
 import { ResponseSearchUsers, UserInfo } from '../model/UserState';
 import { Modal } from '../components/Modal';
 import { ProgressBar } from '../components/ProgressBar';
-import store from "../store";
-import {changeSearchText} from "../store/searchBarSlice";
+import {RootState, store} from "../store";
+import {changeSearchText} from "../store/SearchBarSlice";
 import {changeCardList} from "../store/CardListSlice";
+import {useAppDispatch, useAppSelector} from "../hooks/redux";
 
 const DEFAULT_LOGIN = 'Denis';
 
 export const Main = () => {
-  type RootState = ReturnType<typeof store.getState>
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
 
-  const [userList, setUserList] = React.useState<ResponseSearchUsers>();
+  const [userList, setUserList] = React.useState<ResponseSearchUsers>(
+      useAppSelector((state: RootState) => state.cardList.cardList)
+  );
   const [inputLogin, setInputLogin] = React.useState(
-      useSelector((state: RootState) => state.searchBar.searchText ) || DEFAULT_LOGIN
+      useAppSelector((state: RootState) => state.searchBar.searchText ) || DEFAULT_LOGIN
   );
   const [modalIsOpen, setModalIsOpen] = React.useState(false);
   const [selectedUserId, setSelectedUserId] = React.useState(-1);
@@ -32,8 +34,6 @@ export const Main = () => {
       setIsComplete(false);
       if (inputLogin === DEFAULT_LOGIN) {
         userService.findUsers(inputLogin).then((response) => setUserList(response));
-      } else {
-        // useSelector((state: RootState) => state.cardList.cards);
       }
       setIsComplete(true);
       setIsCreate(true);
@@ -44,7 +44,11 @@ export const Main = () => {
   }, [isCreate, inputLogin]);
 
   useEffect(() => {
-    userList?.items.forEach((element) => {
+    dispatch(changeCardList(userList));
+  }, [userList])
+
+  useEffect(() => {
+    userList.items?.forEach((element) => {
       if (element.id === selectedUserId) setSelectedUser(element);
     });
   }, [selectedUserId, userList?.items]);
@@ -55,10 +59,9 @@ export const Main = () => {
 
   const handleKeyDown = async (event: { key: string }) => {
     if (event.key === 'Enter') {
-      await setIsComplete(false);
+      setIsComplete(false);
       await userService.findUsers(inputLogin).then((response) => setUserList(response));
-      await dispatch(changeCardList(userList));
-      await setIsComplete(true);
+      setIsComplete(true);
     }
   };
 
@@ -86,7 +89,8 @@ export const Main = () => {
       <div>
         <div className="box">
           <div className="gridContainer">
-            {userList?.items.map((user) => {
+            {
+              userList.items?.map((user: UserInfo) => {
               return (
                 <div
                   key={user.id}
@@ -97,7 +101,8 @@ export const Main = () => {
                   <Card key={user.id} id={user.id} name={user.login} img={user.avatar_url} />
                 </div>
               );
-            })}
+              })
+            }
           </div>
         </div>
       </div>
