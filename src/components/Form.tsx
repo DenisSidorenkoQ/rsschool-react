@@ -4,6 +4,9 @@ import { FormCardInfo } from '../model/FormCardState';
 import { FormCard } from './FormCard';
 import {RootState, store} from "../store";
 import {useDispatch, useSelector} from "react-redux";
+import {useAppSelector} from "../hooks/redux";
+import {changeCardList} from "../store/CardListSlice";
+import {setCards} from "../store/FormCardListSlice";
 
 const ERROR_FIELD_IS_EMPTY = 'Field is empty';
 const ERROR_FIELD_CONSIST_FROM_TWO_WORDS = 'Field consist from two words';
@@ -24,7 +27,9 @@ export function Form() {
   const [dateErrorText, setDateErrorText] = useState('');
   const [dataConfirmationErrorText, setDataConfirmationErrorText] = useState('');
   const [dataConfirmation, setDataConfirmation] = useState(false);
-  const [cardList, setCardList] = useState<FormCardInfo[]>([]);
+  const [cardList, setCardList] = React.useState<FormCardInfo[]>(
+      useAppSelector((state: RootState) => state.formCardList.formCards)
+  );
 
   const [name, setName] = useState('');
   const [date, setDate] = useState('');
@@ -33,9 +38,8 @@ export function Form() {
   const [img, setImg] = useState('');
 
   useEffect(() => {
-    console.log("start");
-    // setCardList(useSelector((state: RootState) => state.formCardList.formCards));
-  }, []);
+    dispatch(setCards(cardList));
+  }, [cardList])
 
   const nameChange = (e: React.FormEvent<HTMLInputElement>) => {
     setName(e.currentTarget.value);
@@ -105,15 +109,13 @@ export function Form() {
     }
 
     if (validate) {
-      cardList.push({
+      setCardList(oldArray => [...oldArray, {
         country: country,
         date: date,
         img: img,
         name: name,
         sex: sex,
-      });
-      //
-      // dispatch(setCards(cardList));
+      }])
 
       if (
         nameInput.current &&
@@ -134,7 +136,6 @@ export function Form() {
       setDate('');
       setCountry('Belarus');
       setDataConfirmation(false);
-      console.log(cardList);
     }
   };
 
