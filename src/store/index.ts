@@ -4,12 +4,12 @@ import CardListReducer from './CardListSlice';
 import FormCardListReducer from './FormCardListSlice';
 
 export const store = configureStore({
-    reducer: {
-        searchBar: SearchBarReducer,
-        cardList: CardListReducer,
-        formCardList: FormCardListReducer,
-    }
+  reducer: {
+    searchBar: SearchBarReducer,
+    cardList: CardListReducer,
+    formCardList: FormCardListReducer,
+  },
 });
 
-export type RootState = ReturnType<typeof store.getState>
-export type AppDispatch = typeof store.dispatch
+export type RootState = ReturnType<typeof store.getState>;
+export type AppDispatch = typeof store.dispatch;

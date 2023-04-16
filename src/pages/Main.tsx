@@ -1,16 +1,15 @@
 import React, { useEffect } from 'react';
-import {useDispatch, useSelector} from 'react-redux'
-import './Main.css';
 import { Header } from './Header';
 import { Card } from '../components/Card';
 import userService from '../service/GithubUserService';
 import { ResponseSearchUsers, UserInfo } from '../model/UserState';
 import { Modal } from '../components/Modal';
 import { ProgressBar } from '../components/ProgressBar';
-import {RootState, store} from "../store";
-import {changeSearchText} from "../store/SearchBarSlice";
-import {changeCardList} from "../store/CardListSlice";
-import {useAppDispatch, useAppSelector} from "../hooks/redux";
+import { RootState } from '../store';
+import { changeSearchText } from '../store/SearchBarSlice';
+import { changeCardList } from '../store/CardListSlice';
+import { useAppDispatch, useAppSelector } from '../hooks/redux';
+import './Main.css';
 
 const DEFAULT_LOGIN = 'Denis';
 
@@ -18,10 +17,10 @@ export const Main = () => {
   const dispatch = useAppDispatch();
 
   const [userList, setUserList] = React.useState<ResponseSearchUsers>(
-      useAppSelector((state: RootState) => state.cardList.cardList)
+    useAppSelector((state: RootState) => state.cardList.cardList)
   );
   const [inputLogin, setInputLogin] = React.useState(
-      useAppSelector((state: RootState) => state.searchBar.searchText ) || DEFAULT_LOGIN
+    useAppSelector((state: RootState) => state.searchBar.searchText) || DEFAULT_LOGIN
   );
   const [modalIsOpen, setModalIsOpen] = React.useState(false);
   const [selectedUserId, setSelectedUserId] = React.useState(-1);
@@ -41,11 +40,11 @@ export const Main = () => {
     return function () {
       dispatch(changeSearchText(inputLogin));
     };
-  }, [isCreate, inputLogin]);
+  }, [dispatch, isCreate, inputLogin]);
 
   useEffect(() => {
     dispatch(changeCardList(userList));
-  }, [userList])
+  }, [dispatch, userList]);
 
   useEffect(() => {
     userList.items?.forEach((element) => {
@@ -89,8 +88,7 @@ export const Main = () => {
       <div>
         <div className="box">
           <div className="gridContainer">
-            {
-              userList.items?.map((user: UserInfo) => {
+            {userList.items?.map((user: UserInfo) => {
               return (
                 <div
                   key={user.id}
@@ -101,8 +99,7 @@ export const Main = () => {
                   <Card key={user.id} id={user.id} name={user.login} img={user.avatar_url} />
                 </div>
               );
-              })
-            }
+            })}
           </div>
         </div>
       </div>
