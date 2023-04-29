@@ -13,7 +13,7 @@ const App = () => {
         <Route path={'/about-us'} element={<AboutUs />} />
         <Route path={'/main'} element={<Main />} />
         <Route path={'/form'} element={<FormPage />} />
-        <Route path={'*'} element={<Navigate to="/error" replace />} />
+        <Route path='*' element={<Error404 />} />
       </Routes>
     </div>
   );
