@@ -1,0 +1,12 @@
+.header-link {
+    color: inherit;
+    text-decoration: inherit;
+    font-size: 3.2em;
+    line-height: 1.1;
+}
+
+.header-box {
+    text-align: right;
+    padding-right: 5em;
+}
+
